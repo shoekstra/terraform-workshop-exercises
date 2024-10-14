@@ -18,17 +18,18 @@ provider "azurerm" {
 }
 
 resource "random_string" "example" {
-  length  = 4
-  special = false
+  length    = 4
+  min_lower = 4
+  special   = false
 }
 
 resource "azurerm_resource_group" "example" {
   name     = "myTFResourceGroup-${random_string.example.result}"
-  location = "westus2"
+  location = "westeurope"
 }
 
 resource "azurerm_storage_account" "example" {
-  name                     = "examplestorageacct-${random_string.example.result}"
+  name                     = "exstorageacct${random_string.example.result}"
   resource_group_name      = azurerm_resource_group.example.name
   location                 = azurerm_resource_group.example.location
   account_tier             = "Standard"
